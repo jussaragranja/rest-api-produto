@@ -1,0 +1,5 @@
+/home/jugranja/dev/git/produto/src/main/java/br/com/jussara/apirest/produto/controller/ProdutoController.java
+/home/jugranja/dev/git/produto/src/main/java/br/com/jussara/apirest/produto/repository/ProdutoRepository.java
+/home/jugranja/dev/git/produto/src/main/java/br/com/jussara/apirest/produto/config/SwaggerConfig.java
+/home/jugranja/dev/git/produto/src/main/java/br/com/jussara/apirest/produto/ProdutoApplication.java
+/home/jugranja/dev/git/produto/src/main/java/br/com/jussara/apirest/produto/model/ProdutoModel.java
