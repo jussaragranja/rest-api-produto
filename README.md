@@ -9,9 +9,9 @@
   </a>
 </p>
 
-> CRUD Exemplo de uma API REST, utilizando Spring-Boot, Lombok, Swagger e Postgres
+> CRUD Exemplo de uma API REST, utilizando Spring-Boot, Lombok, Swagger, Postgres e Deploy no Heroku
 
-### 🏠 [API REST Produto](http://localhost:8080/swagger-ui)
+### 🏠 [API REST Produto (Heroku)](https://jussara-rest-api-produtos.herokuapp.com/swagger-ui/)
 
 ## Run
 
