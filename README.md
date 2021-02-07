@@ -1,4 +1,4 @@
-<h1 align="center">Bem-Vindo ao ApiRestProduto 👋</h1>
+<h1 align="center">Welcome to ApiRestProduto 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="http://localhost:8080/swagger-ui" target="_blank">
@@ -9,11 +9,18 @@
   </a>
 </p>
 
-> CRUD Exemplo de uma API REST, utilizando Spring-Boot, Lombok, Swagger, Postgres e Deploy no Heroku
+> CRUD Example of a REST API, using Spring-Boot, Lombok, Swagger, Postgres e Deploy no Heroku
 
 ### 🏠 [API REST Produto (Heroku)](https://jussara-rest-api-produtos.herokuapp.com/swagger-ui/)
 
-## Run
+## Requirement
+
+```sh
+Java (https://docs.oracle.com/en/java/)
+Maven (https://maven.apache.org/guides/index.html)
+```
+
+## Local Run
 
 ```sh
 mvn clean install spring-boot:run
