@@ -1,5 +1,0 @@
-br/com/jussara/apirest/produto/model/ProdutoModel.class
-br/com/jussara/apirest/produto/config/SwaggerConfig.class
-br/com/jussara/apirest/produto/ProdutoApplication.class
-br/com/jussara/apirest/produto/controller/ProdutoController.class
-br/com/jussara/apirest/produto/repository/ProdutoRepository.class
