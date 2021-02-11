@@ -4,4 +4,5 @@ public class Paths {
 
     public static final String PATH_API = "/api";
     public static final String PATH_PRODUTO_ID = "api/produto/{id}";
+    public static final String PATH_PRODUTO_ID_NULO = "api/produto/";
 }
