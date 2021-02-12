@@ -5,14 +5,14 @@ import br.com.jussara.apirest.produto.model.ProdutoModel;
 import br.com.jussara.apirest.produto.repository.ProdutoRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static br.com.jussara.apirest.produto.constantes.Constantes.*;
+import static br.com.jussara.apirest.produto.constantes.Constantes.MESSAGE_PRODUTO_NAO_ENCONTRADO;
+import static br.com.jussara.apirest.produto.constantes.Constantes.MESSAGE_PRODUTO_NAO_PODE_SER_VAZIO_OU_NULO;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -59,7 +59,6 @@ public class ProdutoController {
 
     @DeleteMapping("/produto/{id}")
     @ApiOperation(value = "Deletar um produto por ID")
-    @ApiResponse(code = org.apache.http.HttpStatus.SC_INTERNAL_SERVER_ERROR, message = MESSAGE_ERRO_INTERNO)
     public ProdutoModel deletarProdutoPorID(@PathVariable(value = "id") Integer id){
         if(produtoRepository.findById(id) == null) {
             throw new ResourceNotFoundException(MESSAGE_PRODUTO_NAO_ENCONTRADO);
