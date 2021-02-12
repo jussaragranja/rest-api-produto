@@ -8,11 +8,14 @@ import org.apache.http.HttpStatus;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static br.com.jussara.apirest.produto.constantes.Constantes.MESSAGE_PRODUTO_NAO_ENCONTRADO;
+import static br.com.jussara.apirest.produto.constantes.Constantes.PATH_MESSAGE;
 import static br.com.jussara.apirest.produto.rest.constantes.Constantes.ID_INVALIDO;
 import static br.com.jussara.apirest.produto.rest.constantes.Constantes.PATH_PARAM_ID;
 import static br.com.jussara.apirest.produto.rest.constantes.Paths.PATH_PRODUTO_ID;
 import static br.com.jussara.apirest.produto.rest.constantes.Paths.PATH_PRODUTO_ID_NULO;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ProdutoResourceTest extends SetupTest {
 
@@ -33,7 +36,7 @@ public class ProdutoResourceTest extends SetupTest {
     }
 
     @Test
-    public void deveRetornar200_quandoConsultarProdutoComIdInvalido(){
+    public void deveRetornar404_quandoConsultarProdutoComIdInvalido(){
 
         given()
             .pathParam(PATH_PARAM_ID, ID_INVALIDO)
@@ -45,24 +48,25 @@ public class ProdutoResourceTest extends SetupTest {
     }
 
     @Test
-    public void deveRetornar200_quandoConsultarProdutoComIdInexistente(){
+    public void deveRetornar404_quandoConsultarProdutoComIdInexistente(){
 
-        //buscar ultimo id e somar +1
+        ProdutoModel produtoModel = produtoRepositoryTestUtil.findProdutoMaiorID();
 
         given()
-            .pathParam(PATH_PARAM_ID, ID_INVALIDO)
+            .pathParam(PATH_PARAM_ID, produtoModel.getId()+1)
         .when()
             .get(PATH_PRODUTO_ID)
         .then()
             .contentType(ContentType.JSON)
-            .statusCode(HttpStatus.SC_NOT_FOUND).log().all();
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+            .body(PATH_MESSAGE, equalTo(MESSAGE_PRODUTO_NAO_ENCONTRADO));
     }
 
     @Test
-    public void deveRetornar200_quandoConsultarProdutoComIdVazio(){
+    public void deveRetornar400_quandoConsultarProdutoComIdVazio(){
 
         given()
-            .pathParam(PATH_PARAM_ID, ID_INVALIDO)
+            .pathParam(PATH_PARAM_ID, "")
         .when()
             .get(PATH_PRODUTO_ID)
         .then()
@@ -71,10 +75,9 @@ public class ProdutoResourceTest extends SetupTest {
     }
 
     @Test
-    public void deveRetornar200_quandoConsultarProdutoComIdNulo(){
+    public void deveRetornar400_quandoConsultarProdutoComIdNulo(){
 
         given()
-            .pathParam(PATH_PARAM_ID, ID_INVALIDO)
         .when()
             .get(PATH_PRODUTO_ID_NULO)
         .then()

@@ -13,4 +13,6 @@ public interface ProdutoRepositoryTestUtil extends JpaRepository<ProdutoModel, L
     @Query(value="SELECT * FROM produto_model ORDER BY random() limit 1", nativeQuery=true)
     ProdutoModel findRandomProduto();
 
+    @Query(value="SELECT * FROM produto_model ORDER BY id desc limit 1", nativeQuery=true)
+    ProdutoModel findProdutoMaiorID();
 }
