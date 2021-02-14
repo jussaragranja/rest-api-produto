@@ -32,13 +32,11 @@ public class ProdutoController {
     @GetMapping("/produto/{id}")
     @ApiOperation(value = "Consultar produto por ID")
     public ProdutoModel consultarProdutoPorID(@PathVariable(value = "id") long id){
-        if(produtoRepository.findById(id) == null) {
-            throw new ResourceNotFoundException(MESSAGE_PRODUTO_NAO_ENCONTRADO);
-        }
-        return produtoRepository.findById(id);
+        return produtoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(MESSAGE_PRODUTO_NAO_ENCONTRADO));
     }
 
-    @PostMapping("/produto")
+    @PostMapping("/create-produto")
     @ApiOperation(value = "Criar um produto")
     @ResponseStatus(value = HttpStatus.CREATED)
     public ProdutoModel criarProduto(@RequestBody ProdutoModel produtoModel){
@@ -48,7 +46,7 @@ public class ProdutoController {
         return produtoRepository.save(produtoModel);
     }
 
-    @DeleteMapping("/produto")
+    @DeleteMapping("/delete-produto")
     @ApiOperation(value = "Deletar um produto")
     public void deletarProduto(@RequestBody ProdutoModel produtoModel){
         if(!produtoRepository.findById(produtoModel.getId()).isPresent()) {
@@ -57,16 +55,16 @@ public class ProdutoController {
         produtoRepository.delete(produtoModel);
     }
 
-    @DeleteMapping("/produto/{id}")
+    @DeleteMapping("/delete-produto-id/{id}")
     @ApiOperation(value = "Deletar um produto por ID")
-    public ProdutoModel deletarProdutoPorID(@PathVariable(value = "id") Integer id){
+    public ProdutoModel deletarProdutoPorID(@PathVariable(value = "id") long id){
         if(produtoRepository.findById(id) == null) {
             throw new ResourceNotFoundException(MESSAGE_PRODUTO_NAO_ENCONTRADO);
         }
         return produtoRepository.deleteById(id);
     }
     
-    @PutMapping("/produto")
+    @PutMapping("/update-produto")
     @ApiOperation(value = "Atualizar um produto")
     public ProdutoModel atualizarProduto(@RequestBody ProdutoModel produtoModel){
         if(!produtoRepository.findById(produtoModel.getId()).isPresent()) {
@@ -74,5 +72,4 @@ public class ProdutoController {
         }
         return produtoRepository.save(produtoModel);
     }
-
 }

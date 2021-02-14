@@ -36,30 +36,18 @@ public class ProdutoResourceTest extends SetupTest {
     }
 
     @Test
-    public void deveRetornar404_quandoConsultarProdutoComIdInvalido(){
-
-        given()
-            .pathParam(PATH_PARAM_ID, ID_INVALIDO)
-        .when()
-            .get(PATH_PRODUTO_ID)
-        .then()
-            .contentType(ContentType.JSON)
-            .statusCode(HttpStatus.SC_BAD_REQUEST).log().all();
-    }
-
-    @Test
     public void deveRetornar404_quandoConsultarProdutoComIdInexistente(){
 
         ProdutoModel produtoModel = produtoRepositoryTestUtil.findProdutoMaiorID();
 
         given()
-            .pathParam(PATH_PARAM_ID, produtoModel.getId()+1)
-        .when()
-            .get(PATH_PRODUTO_ID)
-        .then()
-            .contentType(ContentType.JSON)
-            .statusCode(HttpStatus.SC_NOT_FOUND)
-            .body(PATH_MESSAGE, equalTo(MESSAGE_PRODUTO_NAO_ENCONTRADO));
+                .pathParam(PATH_PARAM_ID, produtoModel.getId()+1)
+                .when()
+                .get(PATH_PRODUTO_ID)
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(HttpStatus.SC_NOT_FOUND)
+                .body(PATH_MESSAGE, equalTo(MESSAGE_PRODUTO_NAO_ENCONTRADO));
     }
 
     @Test
@@ -70,8 +58,8 @@ public class ProdutoResourceTest extends SetupTest {
         .when()
             .get(PATH_PRODUTO_ID)
         .then()
-            .contentType(ContentType.JSON)
-            .statusCode(HttpStatus.SC_BAD_REQUEST).log().all();
+            .contentType(ContentType.JSON).log().all()
+            .statusCode(HttpStatus.SC_NOT_FOUND).log().all();
     }
 
     @Test
@@ -82,6 +70,19 @@ public class ProdutoResourceTest extends SetupTest {
             .get(PATH_PRODUTO_ID_NULO)
         .then()
             .contentType(ContentType.JSON)
-            .statusCode(HttpStatus.SC_BAD_REQUEST).log().all();
+            .statusCode(HttpStatus.SC_NOT_FOUND).log().all();
+    }
+
+    //TODO Adicionar exception para request contendo caracteres
+    @Test
+    public void deveRetornar404_quandoConsultarProdutoComIdInvalido(){
+
+        given()
+                .pathParam(PATH_PARAM_ID, ID_INVALIDO)
+                .when()
+                .get(PATH_PRODUTO_ID)
+                .then()
+                .contentType(ContentType.JSON).log().all()
+                .statusCode(HttpStatus.SC_BAD_REQUEST).log().all();
     }
 }
