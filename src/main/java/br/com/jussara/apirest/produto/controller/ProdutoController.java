@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static br.com.jussara.apirest.produto.constantes.Constantes.MESSAGE_PRODUTO_NAO_ENCONTRADO;
-import static br.com.jussara.apirest.produto.constantes.Constantes.MESSAGE_PRODUTO_NAO_PODE_SER_VAZIO_OU_NULO;
+import static br.com.jussara.apirest.produto.constantes.Constantes.*;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -40,7 +39,12 @@ public class ProdutoController {
     @ApiOperation(value = "Criar um produto")
     @ResponseStatus(value = HttpStatus.CREATED)
     public ProdutoModel criarProduto(@RequestBody ProdutoModel produtoModel){
-        if(!produtoRepository.findById(produtoModel.getId()).isPresent()) {
+        if (produtoModel.getId() != null){
+            if(produtoRepository.findById(produtoModel.getId()).isPresent()) {
+                throw new ResourceNotFoundException(MESSAGE_PRODUTO_JA_CADASTRADO);
+            }
+        }
+        if(produtoModel.getNome() == null || produtoModel == null || produtoModel.equals("")){
             throw new ResourceNotFoundException(MESSAGE_PRODUTO_NAO_PODE_SER_VAZIO_OU_NULO);
         }
         return produtoRepository.save(produtoModel);

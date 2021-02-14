@@ -18,8 +18,6 @@ public class ProdutoModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
-    @Length(min = 1, max = 20, message = MESSAGE_TAMANHO_MIN_MAX)
     private Long id;
 
     @NotNull
